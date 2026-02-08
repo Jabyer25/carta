@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti ❤️</title>
+
+<style>
+    body {
+        background: url("img/img2.jpg");
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family: Arial, sans-serif;
+    }
+/* Contenedor */
+.container{
+    position:relative;
+    width:400px;
+    height:300px;
+    cursor:pointer;
+}
+
+/* Sobre base */
+.envelope{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ff9a9e;
+    border-radius:10px;
+}
+
+/* Parte superior del sobre */
+.flap{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#f8878b;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    border-radius:10px;
+}
+
+/* Carta interna */
+.letter{
+    position:absolute;
+    width:90%;
+    height:90%;
+    background:white;
+    top:5%;
+    left:5%;
+    border-radius:10px;
+    padding:15px;
+    box-sizing:border-box;
+    text-align:center;
+    transform: translateY(0);
+    transition: transform 1s ease;
+    z-index:-1;
+}
+
+/* Cuando se abre */
+.container.open .flap{
+    transform: rotateX(180deg);
+}
+
+.container.open .letter{
+    transform: translateY(-120px);
+    z-index:1;
+}
+
+h2{
+    color:#e63946;
+}
+
+p{
+    color:#333;
+    font-size:14px;
+}
+/* Corazón oculto */
+.heart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 120px;
+    color: red;
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 9999; /* MUY IMPORTANTE */
+}
+
+
+/* Cuando se muestra */
+.heart.show {
+    opacity: 1;
+    transform: scale(1.5);
+    animation: latido 0.6s infinite alternate;
+}
+
+/* Animación de latido */
+@keyframes latido {
+    from { transform: scale(1.5); }
+    to { transform: scale(1.8); }
+}
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#btnNo {
+    position: relative;
+}
+</style>
+</head>
+
+<body>
+<div class="container" onclick="abrirCarta()">
+    <div class="envelope"></div>
+    <div class="flap"></div>
+
+    <div class="letter">
+        <h1>¿Quieres ser mi San Valentin? 💖</h1>
+        <p>
+            Quieres ser mi Valentin por el
+            resto de mi vida mi amor?
+        </p>
+        <button onclick="irASi(event)">Sí</button>
+
+
+        <button id="btnNo">No</button>
+
+    </div>
+</div>
+<script>
+    function mostrarMensaje(event){
+        event.stopPropagation();
+        document.getElementById("corazon").classList.add("show");
+    }
+    
+    
+    function abrirCarta(){
+        document.querySelector(".container").classList.toggle("open");
+    }
+    
+    // BOTÓN NO QUE HUYE
+    const btnNo = document.getElementById("btnNo");
+    const letter = document.querySelector(".letter");
+    
+    btnNo.addEventListener("mouseover", function() {
+    
+        const maxX = letter.clientWidth - btnNo.clientWidth;
+        const maxY = letter.clientHeight - btnNo.clientHeight;
+    
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+    
+        btnNo.style.position = "absolute";
+        btnNo.style.left = randomX + "px";
+        btnNo.style.top = randomY + "px";
+    });
+    function irASi(event){
+        event.stopPropagation();
+        window.location.href = "si.html";
+    }
+    
+    </script>
+    
+    
+    <div id="corazon" class="heart">🫀</div>
+
+
+</body>
+</html>
